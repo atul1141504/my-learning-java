@@ -1,0 +1,14 @@
+Bike Started!
+Bike Started!
+Speed     :100
+This Speed:0
+Intial state Ducati Bike:100km/hr.
+Speed     :80
+This Speed:0
+Intial state Honda Bike :80km/hr.
+Speed     :-20
+This Speed:100
+Next state Ducati Bike:100km/hr.
+Speed     :120
+This Speed:80
+Next state Honda Bike :120km/hr.
