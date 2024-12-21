@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module codingExercises6ArranAndArrayList {
+}
