@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module codingExercises6ArranAndArrayList {
-}
