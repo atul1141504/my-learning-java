@@ -34,13 +34,21 @@ c. Return true if all conditions are met, false otherwise.
   		So, if side is less than or equal to Zero, this method should return -1 to indicate an invalid value.
 
 * Logic:
+  
   A year is a leap year in the Gregorian calendar if:
+  
 	It is divisible by 4 (AND)
-	It is NOT divisible by 100 (except when it is divisible by 400)
+
+ 	It is NOT divisible by 100 (except when it is divisible by 400)
+
 	Not Divisible by 4 - NOT Leap Year (2041)
+
 	Divisible by 4 and NOT divisible by 100 - Leap Year (2048)
+
 	Divisible by 4 and divisible by 100 - Additional check needed
+
 	Divisible by 4, divisible by 100, divisible by 400 - Leap Year (2000, 2400)
+
 	Divisible by 4, divisible by 100, NOT divisible by 400 - NOT Leap Year (2100, 2200, 2300)	
 
 **Instructions**:
