@@ -12,10 +12,14 @@
 	**isRightAnglrTriangle(int side1, int side2, int side3)**
 
 * NOTE:
-a. Ensure you return false if any of the input angles or sides are non-positive (i.e., less than or equal to zero).
-b. Compute the sum of the angles and check if it equals 180 for a valid triangle.
-c. Use Pythagoras Theorem to validate Right Angle Triangle.
-c. Return true if all conditions are met, false otherwise.
+  
+	a. Ensure you return false if any of the input angles or sides are non-positive (i.e., less than or equal to zero).
+
+	b. Compute the sum of the angles and check if it equals 180 for a valid triangle.
+
+	c. Use Pythagoras Theorem to validate Right Angle Triangle.
+
+	d. Return true if all conditions are met, false otherwise.
 
 ## Task-2: Leap year check 
 * Create a Java program to check if a given year is leap year or not.
@@ -35,21 +39,21 @@ c. Return true if all conditions are met, false otherwise.
 
 * Logic:
   
-  A year is a leap year in the Gregorian calendar if:
+  	A year is a leap year in the Gregorian calendar if:
   
-	It is divisible by 4 (AND)
+		It is divisible by 4 (AND)
 
- 	It is NOT divisible by 100 (except when it is divisible by 400)
+ 		It is NOT divisible by 100 (except when it is divisible by 400)
 
-	Not Divisible by 4 - NOT Leap Year (2041)
+		Not Divisible by 4 - NOT Leap Year (2041)
 
-	Divisible by 4 and NOT divisible by 100 - Leap Year (2048)
+		Divisible by 4 and NOT divisible by 100 - Leap Year (2048)
 
-	Divisible by 4 and divisible by 100 - Additional check needed
+		Divisible by 4 and divisible by 100 - Additional check needed
 
-	Divisible by 4, divisible by 100, divisible by 400 - Leap Year (2000, 2400)
+		Divisible by 4, divisible by 100, divisible by 400 - Leap Year (2000, 2400)
 
-	Divisible by 4, divisible by 100, NOT divisible by 400 - NOT Leap Year (2100, 2200, 2300)	
+		Divisible by 4, divisible by 100, NOT divisible by 400 - NOT Leap Year (2100, 2200, 2300)	
 
 **Instructions**:
 * Step 1: Implement the isLeapYear method to return true if the year is a leap year and false otherwise.
