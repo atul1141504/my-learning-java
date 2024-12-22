@@ -3,9 +3,9 @@
 ## Task1: Check if a number greater than a given number present in Array
 **Instructions**:
 
-          *Create a Java program that determines whether there's an element greater than a given number in an array.
-          *logic must return false if there are no items present in the Array.
-          *return true, if a greater number present in the Array. 
+          a. Create a Java program that determines whether there's an element greater than a given number in an array.
+          b. logic must return false if there are no items present in the Array.
+          c. return true, if a greater number present in the Array. 
 
 ## Task2: Get Second Largest Number Present in Array
 **Instructions**:
