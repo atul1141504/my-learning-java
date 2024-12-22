@@ -5,7 +5,7 @@
 	a. Validate if the given angles can form a valid Triangle.
 	b. Validate if the given sides can form a valid Triangle.
 * create Java Class with name **TriangleValidator**
-* Create below Java Methods
+* Create below Java Methods:
 
 	**isValidTriangle(int angle1, int angle2, int angle3)**
   
@@ -21,12 +21,17 @@ c. Return true if all conditions are met, false otherwise.
 * Create a Java program to check if a given year is leap year or not.
 * create Java Class with name **LeapYearChecker**
 
-* Create below Java Method
-	**isLeapYear(int year)** : 
+* Create below Java Method:
+  
+	**isLeapYear(int year)** :
+  
 		This method calculates and returns the area of the square. 
-		The area of a square is given by the formula: side * side. 	
-		However, in the real world, a square cannot have a side length of zero or less. 
-		So, if side is less than or equal to Zero, this method should return -1 to indicate an invalid value.
+
+  		The area of a square is given by the formula: side * side. 	
+
+  		However, in the real world, a square cannot have a side length of zero or less. 
+
+  		So, if side is less than or equal to Zero, this method should return -1 to indicate an invalid value.
 
 * Logic:
   A year is a leap year in the Gregorian calendar if:
