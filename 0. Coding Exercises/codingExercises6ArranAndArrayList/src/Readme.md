@@ -47,6 +47,7 @@
 
 ## Task7: Get Multiples of a number
 **Instructions**:
+
           a. Create a Java program that generates a list of multiples of a given number less than a specified limit.
           b. Parameter1 'number' - the number to find multiples of
           c. Parameter2 'limit'  - the upper bound for the multiples
