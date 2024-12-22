@@ -9,6 +9,7 @@
 
 ## Task2: Get Second Largest Number Present in Array
 **Instructions**:
+
           a. Create a Java program that finds and returns the second largest element in the given array.
           b. Parameter 'array' - the array in which to find the second largest element.
           c. return -1, if input array has only one or no items.
@@ -18,6 +19,7 @@
 
 ## Task3: Check if Sum of items of two arrays is equal
 **Instructions**:
+
           a. Create a Java program that that checks if the sum of items of two arrays is equal or not.
           b. Parameter 'array' - the array to to check if sum is equal.
 
