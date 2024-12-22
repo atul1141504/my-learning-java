@@ -6,6 +6,7 @@
 	b. Validate if the given sides can form a valid Triangle.
 * create Java Class with name **TriangleValidator**
 * Create below Java Methods
+
 	**isValidTriangle(int angle1, int angle2, int angle3)**
 	**isRightAnglrTriangle(int side1, int side2, int side3)**
 
