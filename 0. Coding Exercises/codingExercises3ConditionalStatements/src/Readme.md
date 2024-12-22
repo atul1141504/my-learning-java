@@ -8,17 +8,13 @@
 * Create below Java Methods:
 
 		**isValidTriangle(int angle1, int angle2, int angle3)**
-  
 		**isRightAnglrTriangle(int side1, int side2, int side3)**
 
 * NOTE:
   
 		a. Ensure you return false if any of the input angles or sides are non-positive (i.e., less than or equal to zero).
-
 		b. Compute the sum of the angles and check if it equals 180 for a valid triangle.
-
 		c. Use Pythagoras Theorem to validate Right Angle Triangle.
-
 		d. Return true if all conditions are met, false otherwise.
 
 ## Task-2: Leap year check 
@@ -30,11 +26,8 @@
 	**isLeapYear(int year)** :
   
 		This method calculates and returns the area of the square. 
-
   		The area of a square is given by the formula: side * side. 	
-
   		However, in the real world, a square cannot have a side length of zero or less. 
-
   		So, if side is less than or equal to Zero, this method should return -1 to indicate an invalid value.
 
 * Logic:
@@ -42,17 +35,11 @@
   	A year is a leap year in the Gregorian calendar if:
   
 		It is divisible by 4 (AND)
-
  		It is NOT divisible by 100 (except when it is divisible by 400)
-
 		Not Divisible by 4 - NOT Leap Year (2041)
-
 		Divisible by 4 and NOT divisible by 100 - Leap Year (2048)
-
 		Divisible by 4 and divisible by 100 - Additional check needed
-
 		Divisible by 4, divisible by 100, divisible by 400 - Leap Year (2000, 2400)
-
 		Divisible by 4, divisible by 100, NOT divisible by 400 - NOT Leap Year (2100, 2200, 2300)	
 
 **Instructions**:
@@ -73,8 +60,8 @@
 ## Task-4: Assign Grades to student
 * Write a Java program to get Student grade based on the marks obtained.
 * create Java Class with name **Ex_4_StudentGradeChecker**
-* Create below Java Methods
-		** assignGrade()**
+* Create below Java Methods:
+		**assignGrade()**
 
 **Instructions**:
 * Step 1: constructor will take one parameter, **marks (an integer)**, and it should assign it to the marks instance variable.
@@ -83,15 +70,10 @@
   
 		less than 0 or greater than 100, return 'X'
 		greater than or equal to 90, return 'A'
-  
 		greater than or equal to 80, return 'B'
-  
 		greater than or equal to 70, return 'C'
-  
 		greater than or equal to 60, return 'D'
-  
 		greater than or equal to 50, return 'E'
-  
 		less than 50, return 'F'
 
 ## Task-5: Weather Advisor
