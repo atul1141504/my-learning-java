@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module codingExercises9JavaFunctionalProgramming {
+}
