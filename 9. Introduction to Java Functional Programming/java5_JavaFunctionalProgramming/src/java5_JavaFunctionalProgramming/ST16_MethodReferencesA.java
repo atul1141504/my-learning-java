@@ -13,6 +13,8 @@ public class ST16_MethodReferencesA {
 		
 		//Replace Instance Method with a Method Reference
 		printLengthOfListElementsSimplifiedMapper();
+		printSortedElementsUsingLamdaFunc();
+		printSortedElementsForInstanceMethRef();
 		
 		//Create a User/Custom Method reference
 		printLengthOfListElementsUsingPrintMethodReference();
@@ -21,7 +23,7 @@ public class ST16_MethodReferencesA {
 	
 	static void printLengthOfListElements() {
 		System.out.print("Length Of elements are ");
-		List.of("Apple","Boy","cat","Double","Elephant")
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
 			.stream()
 			.map(s->s.length())
 			.forEach(s->System.out.print(s+" "));
@@ -36,7 +38,7 @@ public class ST16_MethodReferencesA {
 	 */
 	static void printLengthOfListElementsSimplifiedSysout() {
 		System.out.print("\nLength Of elements using simplified Sysout & System.out class are ");
-		List.of("Apple","Boy","cat","Double","Elephant")
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
 			.stream()
 			.map(s->s.length())
 			.forEach(System.out::print);	//The class=> System.out
@@ -48,15 +50,30 @@ public class ST16_MethodReferencesA {
 	 */
 	static void printLengthOfListElementsSimplifiedMapper() {
 		System.out.print("\nLength Of elements using simplified Mapper are ");
-		List.of("Apple","Boy","cat","Double","Elephant")
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
 			.stream()
 			.map(String::length)			//s->s.length() => converted to => String::length
 			.forEach(System.out::print);	//The class=> System.out
 	}
 	
+	static void printSortedElementsUsingLamdaFunc() {
+		System.out.print("\nLength Of elements using simplified Mapper are \n");
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
+			.stream()
+			.sorted((s1,s2)->s1.compareTo(s2))			//s->s.length() => converted to => String::length
+			.forEach(System.out::println);	//The class=> System.out
+	}
+	
+	static void printSortedElementsForInstanceMethRef() {
+		System.out.print("\nLength Of elements using simplified Mapper are \n");
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
+			.stream()
+			.sorted(String::compareTo)		//(s1,s2)->s1.compareTo(s2) => converted to => String::length
+			.forEach(System.out::println);	//The class=> System.out
+	}
 	static void printLengthOfListElementsUsingPrintMethodReference() {
 		System.out.print("\nLength Of elements using Method Reference are ");
-		List.of("Apple","Boy","cat","Double","Elephant")
+		List.of("Apple","Boy","Atul","Cat","Double","Elephant")
 			.stream()
 			.map(String::length)
 			

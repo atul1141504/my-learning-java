@@ -1,0 +1,65 @@
+Note: This is just a sample output, 
+	  In Multi-threading environment output can be different in each Program run.
+<<<<<<<<<<<<<< -- Output -- >>>>>>>>>>>>>>	  
+Initial Priority of the Threads =>
+	Priority of Thread-0 is 5
+	Priority of Thread-1 is 5
+	Priority of Thread-2 is 5
+	Priority of Thread-3 is 5
+New Priorities of the Threads =>
+	Priority of Thread-0 is 2
+	Priority of Thread-1 is 5
+	Priority of Thread-2 is 8
+	Priority of Thread-3 is 10
+Thread-2 is running with priority 8
+Thread-0 is running with priority 2
+Thread-1 is running with priority 5
+Thread-1 started execution!
+10
+11
+12
+13
+14
+15
+16
+17
+Thread-0 started execution!
+0
+1
+2
+3
+Thread-2 started execution!
+20
+21
+22
+23
+24
+25
+26
+18
+19
+4
+5
+Thread-1 completed!
+27
+28
+29
+6
+7
+8
+9
+Thread-0 completed!
+Thread-2 completed!
+Thread-3 is running with priority 10
+Thread-3 started execution!
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+Thread-3 completed!
