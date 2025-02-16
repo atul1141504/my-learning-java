@@ -15,6 +15,9 @@ public class L6_ExecutorServiceC_Callable_InvokeAny {
 										new CallableTask("Mr. Atul"),
 										new CallableTask("Mr. Patel"));
 		
+		/* This invokes all the tasks present in the list
+		 * It returns the response of the fastest executed thread.
+		 */
 		String response = executorService.invokeAny(tasks);
 		
 		System.out.println("Response from thread: "+ response);
