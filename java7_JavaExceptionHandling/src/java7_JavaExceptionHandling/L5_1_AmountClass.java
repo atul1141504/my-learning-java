@@ -43,27 +43,49 @@ class Amount{
 	 */
 	
 	public void add3(Amount that) throws Exception {
-		if(!this.currency.equals(that.currency)) {
+		if(this.currency!=that.currency) {
 			throw new Exception("Currencies " + this.currency + " & " 
 										+ that.currency + " do not match");
 		}
-		this.amount += that.amount;
+		this.amount = this.amount + that.amount;
+	}
+	
+	/*	This is a Custom Exception handling which extends Exception interface
+	 * 	Therefore this needs an explicit exception Handling using any of the below:
+	 * 		like - "throws Exception in Method Signature" or try-catch block
+	 */
+	@SuppressWarnings("serial")
+	class CustomCurrencyDoNotMatchException extends Exception{
+		public CustomCurrencyDoNotMatchException(String msg) {
+			super(msg);
+		}
 	}
 	
 	public void add4(Amount that) throws CustomCurrencyDoNotMatchException {
-		if(!this.currency.equals(that.currency)) {
+		if(this.currency!=that.currency) {
 			throw new CustomCurrencyDoNotMatchException("Currencies " + this.currency + " & " 
 										+ that.currency + " do not match");
 		}
-		this.amount += that.amount;
+		this.amount = this.amount + that.amount;
+	}
+	
+	/*	This is a Custom Exception handling which extends RuntimeException interface
+	 * 	Therefore this is not required explicit exception Handling:
+	 * 		like - "throws Exception in Method Signature" or try-catch block
+	 */
+	@SuppressWarnings("serial")
+	class CustomCurrencyDoNotMatchRuntimeException extends RuntimeException{
+		public CustomCurrencyDoNotMatchRuntimeException(String msg) {
+			super(msg);
+		}
 	}
 	
 	public void add5(Amount that) {
-		if(!this.currency.equals(that.currency)) {
+		if(this.currency!=that.currency) {
 			throw new CustomCurrencyDoNotMatchRuntimeException("Currencies " + this.currency + " & " 
 										+ that.currency + " do not match");
 		}
-		this.amount += that.amount;
+		this.amount = this.amount + that.amount;
 	}
 
 	public String toString(){
