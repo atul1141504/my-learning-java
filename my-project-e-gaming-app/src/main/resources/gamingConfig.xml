@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+								https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util 
+								https://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- bean definitions here -->
+
+	<bean id="game"
+		class="learn.springframework.my_project_a_spring_framework.gameUsingInterface.PackmanGame" />
+
+	<bean id="gameRunner"
+		class="learn.springframework.my_project_a_spring_framework.gameUsingInterface.GameRunner">
+		<constructor-arg ref="game" />
+	</bean>
+
+</beans>
