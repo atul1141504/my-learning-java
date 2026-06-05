@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Project List</title>
+    <style>
+        /* — Project List: teal/blue data-dashboard theme — */
+        @keyframes headerSlideDown {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes tableRowIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes filterBarIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7fb; }
+        
+        /* Top Bar */
+        .header {
+            background: linear-gradient(90deg, #0d6efd, #0aa3bf);
+            color: white; padding: 0.75rem 1.2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            animation: headerSlideDown 0.45s ease both;
+        }
+
+        .header h2 { color: #fff; margin: 0; font-size: 1.1rem; }
+        .header a { color: rgba(255,255,255,0.85) !important; font-size: 0.82rem; text-decoration: none; }
+        .header a:hover { color: #fff !important; text-decoration: underline; }
+
+        /* Content padding */
+        body > :not(.header) { padding-left: 1rem; padding-right: 1rem; }
+        h2 { color: #1a3c5e; }
+        
+        table { border-collapse: collapse; width: 100%; font-size: 0.83rem; }
+        th, td { border: 1px solid #d1dce8; padding: 6px 10px; text-align: left; }
+        th { background: linear-gradient(90deg, #0d6efd, #0aa3bf); color: white; font-weight: 600; }
+        
+        tbody tr { opacity: 0; animation: tableRowIn 0.35s ease forwards; }
+        tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        tbody tr:nth-child(2) { animation-delay: 0.09s; }
+        tbody tr:nth-child(3) { animation-delay: 0.13s; }
+        tbody tr:nth-child(4) { animation-delay: 0.17s; }
+        tbody tr:nth-child(5) { animation-delay: 0.21s; }
+        tbody tr:nth-child(6) { animation-delay: 0.25s; }
+        tbody tr:nth-child(7) { animation-delay: 0.29s; }
+        tbody tr:nth-child(8) { animation-delay: 0.33s; }
+        tbody tr:nth-child(9) { animation-delay: 0.37s; }
+        tbody tr:nth-child(10) { animation-delay: 0.41s; }
+        tbody tr:nth-child(n+11) { animation-delay: 0.45s; }
+        
+        tbody tr:nth-child(even) { background: #eef4fb; }
+        tbody tr:hover { background: #d6eaff !important; transition: background 0.15s; }
+        
+        .filter-form {
+            display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.8rem 0 0.8rem;
+            align-items: flex-end;
+            background: #fff; padding: 0.75rem 1rem;
+            border-radius: 8px; border: 1px solid #ccd9e8;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            animation: filterBarIn 0.5s ease 0.15s both;
+        }
+
+        .filter-form label { font-size: 0.82rem; font-weight: 600; color: #1a3c5e; }
+        .filter-form input, .filter-form select { padding: 4px 6px; border: 1px solid #aec6e0; border-radius: 4px; font-size: 0.83rem; }
+        
+        .btn { padding: 5px 12px; border-radius: 4px; border: none; cursor: pointer; font-size: 0.82rem; transition: opacity 0.15s, transform 0.1s; }
+        .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-primary { background: #0d6efd; color: white; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn-success { background: #198754; color: white; }
+        
+        .pagination { margin-top: 1rem; display: flex; gap: 0.5rem; padding-bottom: 1.5rem; }
+        .pagination a { padding: 5px 10px; border: 1px solid #0d6efd; color: #0d6efd; text-decoration: none; border-radius: 4px; transition: background 0.15s; }
+        .pagination a:hover { background: #e7f0ff; }
+        .pagination a.active { background: #0d6efd; color: white; }
+        
+        .logout { color: #ffcdd2; text-decoration: none; }
+        .table-wrapper { overflow-x: auto; margin-top: 0.5rem; }
+        .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 0.6rem 1rem; border-radius: 4px; margin: 0.5rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div style="display:flex; align-items:center; gap:1rem;">
+        <a th:href="@{/home}" style="font-size:0.85rem; color:#007bff; text-decoration:none;">&#8962; Home</a>
+        <h2 style="margin:0;">Project Data Management</h2>
+    </div>
+    <div>
+        <span>Logged in as: <strong sec:authentication="name"></strong></span>
+        &nbsp;
+        <form method="post" th:action="@{/logout}" style="display:inline">
+            <button class="btn" type="submit" style="background:none; color:red; border:1px solid red; cursor:pointer;">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div th:if="${param.accessDenied}" class="alert-danger">
+    You are not authorised to edit this project. Only the assigned user or an Admin can make changes.
+</div>
+
+<form th:action="@{/projects}" method="get" class="filter-form">
+    <input type="hidden" name="filtered" value="true"/>
+    <div>
+        <label>Project ID:<br/>
+            <input type="text" name="projectId" th:value="${projectId}"/>
+        </label>
+    </div>
+    <div>
+        <label>Description:<br/>
+            <input type="text" name="projectDescription" th:value="${projectDescription}"/>
+        </label>
+    </div>
+    <div>
+        <label>Since Year:<br/>
+            <select name="fromYear">
+                <option value="">-- Any --</option>
+                <option th:each="y : ${years}" th:value="${y}" th:text="${y}" th:selected="${y.toString() == fromYear}"></option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>To Year:<br/>
+            <select name="toYear">
+                <option value="">-- Any --</option>
+                <option th:each="y : ${years}" th:value="${y}" th:text="${y}" th:selected="${y.toString() == toYear}"></option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Month:<br/>
+            <select name="month">
+                <option value="">-- Any --</option>
+                <option th:each="m : ${months}" th:value="${m[0]}" th:text="${m[1]}" th:selected="${m[0] == month}"></option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Status:<br/>
+            <select name="status">
+                <option value="">-- All --</option>
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${s == status}"></option>
+            </select>
+        </label>
+    </div>
+    <div style="padding-top: 1.3rem;">
+        <button class="btn btn-primary" type="submit">Search</button>
+        &nbsp;
+        <a class="btn btn-primary" th:href="@{/projects(reset=true)}">Reset</a>
+    </div>
+</form>
+
+<div>
+    <a class="btn btn-success" th:href="@{/projects/add}">+ Add New Project</a>
+</div>
+<br/>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Description</th>
+                <th>Client ID</th>
+                <th>Platform</th>
+                <th>Release Date</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Estimate</th>
+                <th>Sol. WalkThrough Dt</th>
+                <th>Design WalkThrough Dt</th>
+                <th>Tech Review Dt</th>
+                <th>Q-Migration Dt</th>
+                <th>V-Migration Dt</th>
+                <th>Client Test Ver Dt</th>
+                <th>P-Migration Dt</th>
+                <th>Assigned To</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${projects}">
+                <td th:text="${p.projectId}"></td>
+                <td th:text="${p.projectDescription}"></td>
+                <td th:text="${p.clientId}"></td>
+                <td th:text="${p.platform}"></td>
+                <td th:text="${p.releaseDate}"></td>
+                <td th:text="${p.status}"></td>
+                <td th:text="${p.catagory}"></td>
+                <td th:text="${p.estimate}"></td>
+                <td th:text="${p.solWalkThroughDt}"></td>
+                <td th:text="${p.designWalkThroughDt}"></td>
+                <td th:text="${p.techReviewDt}"></td>
+                <td th:text="${p.qMigrationDt}"></td>
+                <td th:text="${p.vMigrationDt}"></td>
+                <td th:text="${p.clientTestVerDt}"></td>
+                <td th:text="${p.pMigrationDt}"></td>
+                <td th:text="${p.assignedTo}"></td>
+                <td>
+                    <a class="btn btn-warning" 
+                       th:if="${isAdmin or #strings.equals(p.assignedTo, loggedInUser)}" 
+                       th:href="@{/projects/edit/{id}(id=${p.projectId})}">Edit</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(projects)}">
+                <td colspan="17" style="text-align:center;">No records found.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination" th:if="${totalPages > 1}">
+    <span>Pages:</span>
+    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+       th:href="@{/projects(projectId=${projectId},projectDescription=${projectDescription},fromYear=${fromYear},toYear=${toYear},month=${month},status=${status},page=${i})}" 
+       th:text="${i + 1}" 
+       th:classappend="${i == currentPage} ? 'active' : ''"></a>
+</div>
+
+</body>
+</html>

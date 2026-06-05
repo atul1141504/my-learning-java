@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home - Cards One Stop Shop</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
+
+        /* — Top navigation bar — */
+        .navbar {
+            background: #007bff;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 { font-size: 1.2rem; }
+        .navbar .user-info { display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; }
+        
+        .btn-logout {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.15); }
+
+        /* — Welcome banner — */
+        .welcome {
+            text-align: center;
+            padding: 2.5rem 1rem 1rem;
+            color: #333;
+        }
+        .welcome h2 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+        .welcome p { color: #666; font-size: 0.95rem; }
+
+        /* — Module cards grid — */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            padding: 2rem 1.5rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 260px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card h3 { font-size: 1.05rem; color: #333; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.82rem; color: #666; flex: 1; margin-bottom: 1rem; }
+
+        .btn-open {
+            display: inline-block;
+            padding: 7px 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .btn-open:hover { background: #0056b3; }
+
+        /* — Coming-soon card style — */
+        .card.coming-soon { opacity: 0.55; }
+        .card.coming-soon .btn-open {
+            background: #aaa;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* — Admin badge — */
+        .badge-admin {
+            display: inline-block;
+            background: #ffc107;
+            color: #333;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 10px;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
+        /* — Animated gradient background — */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(270deg, #e8f4fd, #dfe9f3, #e3f0e8, #f0e8f3);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+        }
+
+        /* — Navbar shimmer effect — */
+        .navbar {
+            background: linear-gradient(90deg, #0062cc, #007bff, #339af0, #007bff, #0062cc);
+            background-size: 300% 100%;
+            animation: gradientShift 6s ease infinite;
+        }
+
+        /* — Card staggered fade-in — */
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .card {
+            opacity: 0;
+            animation: cardFadeIn 0.5s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.25s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+        .card:nth-child(4) { animation-delay: 0.55s; }
+
+        /* — Welcome text fade-in — */
+        @keyframes welcomeFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome { animation: welcomeFade 0.6s ease 0.05s both; }
+
+        /* — Card icon pulse on hover — */
+        .card:hover .card-icon { animation: iconPulse 0.4s ease; }
+        @keyframes iconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <h1>Cards One Stop Shop</h1>
+    <div class="user-info">
+        <span>
+            Logged in as: <strong th:text="${loggedInUser}">user</strong>
+            <span th:if="${isAdmin}" class="badge-admin">ADMIN</span>
+        </span>
+        <form method="post" th:action="@{/logout}" style="display:inline">
+            <button class="btn-logout" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="welcome">
+    <h2>Welcome, <span th:text="${loggedInUser}">user</span>!</h2>
+    <p>Select a module below to get started.</p>
+</div>
+
+<div class="card-grid">
+
+    <div class="card">
+        <div class="card-icon">📁</div>
+        <h3>Project Data Management</h3>
+        <p>View, search, add, and edit project records including release dates, statuses, and team assignments.</p>
+        <a class="btn-open" th:href="@{/projects}">Open</a>
+    </div>
+
+    <div class="card" th:if="${isAdmin}">
+        <div class="card-icon">🔐</div>
+        <h3>User Authorization</h3>
+        <p>Manage system users – add new accounts, update roles and passwords, or remove existing users.</p>
+        <a class="btn-open" th:href="@{/users}">Open</a>
+    </div>
+
+	<!-- Module 2 Placeholder (Coming Soon) -->
+	<!--
+    <div class="card coming-soon" th:if="${!isAdmin}">
+        <div class="card-icon">🎨</div>
+        <h3>Resource Management</h3>
+        <p>Track team resources and allocations across projects.</p>
+        <a class="btn-open" th:href="@{/resources}">Open</a>
+    </div>
+	-->
+
+    <div class="card">
+        <div class="card-icon">&#128196;</div>
+        <h3>SuperC File Highlighter</h3>
+        <p>Upload a text file and instantly highlight key column ranges with colour-coded visual markers.</p>
+        <a class="btn-open" th:href="@{/file-highlight}">Open</a>
+    </div>
+
+	<!-- Module 4 Placeholder (Coming Soon) -->
+	<!--
+    <div class="card coming-soon">
+        <div class="card-icon">📊</div>
+        <h3>Reports &amp; Analytics</h3>
+        <p>Generate summary reports and visual analytics on project data.</p>
+        <a class="btn-open" th:href="@{/reports}">Open</a>
+    </div>
+	-->
+	
+</div>
+
+</body>
+</html>
+

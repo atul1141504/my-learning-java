@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User Authorization - Cards Management System</title>
+    <style>
+        /* — User Auth List: deep indigo security theme — */
+        @keyframes headerIn {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rowSlideIn {
+            from { opacity: 0; transform: translateX(-14px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes filterIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f0f0f8; }
+        
+        /* Top header bar */
+        .page-header {
+            background: linear-gradient(90deg, #3d0066, #5c35a0, #3949ab);
+            color: white; padding: 0.75rem 1.2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            animation: headerIn 0.4s ease both;
+        }
+
+        .page-header h2 { color: #fff; margin: 0; font-size: 1.1rem; }
+        
+        /* Breadcrumb */
+        .breadcrumb { font-size: 0.84rem; padding: 0.5rem 1.2rem 0; animation: filterIn 0.4s ease 0.05s both; opacity: 0; }
+        .breadcrumb a { color: #5c35a0; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        
+        /* Body padding */
+        .content { padding: 0 1.2rem 2rem; }
+        table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin-top: 0.5rem; }
+        th, td { border: 1px solid #c9c0e0; padding: 7px 12px; text-align: left; }
+        th { background: linear-gradient(90deg, #3949ab, #5c35a0); color: white; font-weight: 600; }
+        
+        tbody tr { opacity: 0; animation: rowSlideIn 0.35s ease forwards; }
+        tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        tbody tr:nth-child(2) { animation-delay: 0.10s; }
+        tbody tr:nth-child(3) { animation-delay: 0.15s; }
+        tbody tr:nth-child(4) { animation-delay: 0.20s; }
+        tbody tr:nth-child(5) { animation-delay: 0.25s; }
+        tbody tr:nth-child(6) { animation-delay: 0.30s; }
+        tbody tr:nth-child(n+7) { animation-delay: 0.35s; }
+        
+        tbody tr:nth-child(even) { background: #ede8f8; }
+        tbody tr:hover { background: #d9d0f5 !important; transition: background 0.15s; }
+        
+        .btn {
+            padding: 5px 12px; border-radius: 4px; border: none; cursor: pointer; font-size: 0.82rem; text-decoration: none;
+            display: inline-block; transition: opacity 0.15s, transform 0.1s;
+        }
+        .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-primary { background: #3949ab; color: white; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        
+        .alert { padding: 0.6rem 1rem; border-radius: 6px; margin-bottom: 0.8rem; font-size: 0.88rem; }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; }
+        .badge-admin { background: #ffc107; color: #333; }
+        .badge-normal { background: #6c757d; color: white; }
+        
+        .filter-form {
+            display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1rem; background: #fff;
+            padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #c9c0e0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); animation: filterIn 0.5s ease 0.15s both;
+        }
+        .filter-form label { font-size: 0.82rem; font-weight: bold; color: #3d0066; }
+        .filter-form input { padding: 5px 8px; border: 1px solid #b3a0d4; border-radius: 4px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <h2>User Authorization</h2>
+    <div style="display:flex; align-items:center; gap:1rem;">
+        <a class="btn btn-primary" th:href="@{/users/add}">+ Add New User</a>
+        <form method="post" th:action="@{/logout}" style="display:inline;">
+            <button class="btn" type="submit" style="background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.4);">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="breadcrumb">
+    <a th:href="@{/home}">&#8962; Home</a> &nbsp;/&nbsp; User Authorization
+</div>
+
+<div class="content">
+
+    <div th:if="${successMsg}" class="alert alert-success" th:text="${successMsg}"></div>
+    <div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+
+    <form th:action="@{/users}" method="get" class="filter-form">
+        <div>
+            <label>User ID:<br/>
+                <input type="text" name="userId" th:value="${filterUserId}" placeholder="e.g. 1" style="width:100px;"/>
+            </label>
+        </div>
+        <div>
+            <label>Username:<br/>
+                <input type="text" name="userName" th:value="${filterUserName}" placeholder="Search username"/>
+            </label>
+        </div>
+        <div style="padding-top:1.3rem;">
+            <button class="btn btn-primary" type="submit">Search</button>
+            &nbsp;
+            <a class="btn btn-secondary" th:href="@{/users(reset=true)}">Reset</a>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.userId}"></td>
+                <td th:text="${u.userName}"></td>
+                <td>
+                    <span class="badge" 
+                          th:classappend="${u.userRole == 'ADMIN'} ? 'badge-admin' : 'badge-normal'" 
+                          th:text="${u.userRole}"></span>
+                </td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{/users/edit/{id}(id=${u.userId})}">Edit</a>
+                    &nbsp;
+                    <form th:if="${u.userName != loggedInUser}" 
+                          method="post" 
+                          th:action="@{/users/delete/{id}(id=${u.userId})}" 
+                          style="display:inline;" 
+                          th:onsubmit="return confirm('Delete user \'' + [[${u.userName}]] + '\'?');">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                    <span th:if="${u.userName == loggedInUser}" style="font-size:0.75rem; color:#666; font-style:italic;">current user</span>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(users)}">
+                <td colspan="4" style="text-align:center;">No users found.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div></body>
+</html>
+

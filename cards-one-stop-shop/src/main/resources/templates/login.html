@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login - Cards One Stop Shop</title>
+    <style>
+        /* —- Login page: "Cards One Stop Shop" casino-card theme —- */
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.18; }
+            90% { opacity: 0.18; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+        }
+
+        /* /• Floating card-suit symbols */
+        .suits-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+        .suit {
+            position: absolute;
+            bottom: -5%;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.25);
+            animation: floatUp linear infinite;
+        }
+
+        .suit:nth-child(1) { left: 5%; animation-duration: 9s; animation-delay: 0s; font-size: 1.4rem; }
+        .suit:nth-child(2) { left: 15%; animation-duration: 13s; animation-delay: 1.5s; color: rgba(220,53,69,0.3); }
+        .suit:nth-child(3) { left: 27%; animation-duration: 8s; animation-delay: 3s; }
+        .suit:nth-child(4) { left: 40%; animation-duration: 11s; animation-delay: 0.8s; color: rgba(220,53,69,0.3); font-size: 2.6rem; }
+        .suit:nth-child(5) { left: 55%; animation-duration: 14s; animation-delay: 2s; font-size: 1.2rem; }
+        .suit:nth-child(6) { left: 68%; animation-duration: 9s; animation-delay: 4s; color: rgba(220,53,69,0.3); }
+        .suit:nth-child(7) { left: 78%; animation-duration: 12s; animation-delay: 1s; }
+        .suit:nth-child(8) { left: 88%; animation-duration: 10s; animation-delay: 2.5s; color: rgba(220,53,69,0.3); font-size: 1.8rem; }
+        .suit:nth-child(9) { left: 95%; animation-duration: 7s; animation-delay: 3.5s; font-size: 1rem; }
+        .suit:nth-child(10) { left: 33%; animation-duration: 15s; animation-delay: 5s; color: rgba(220,53,69,0.3); font-size: 2.2rem; }
+        /* /* Login box */
+        .login-box {
+            position: relative; z-index: 1;
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            width: 340px;
+            animation: fadeSlideUp 0.7s ease both;
+        }
+
+        h2 { text-align: center; margin-bottom: 1.6rem; color: #fff; font-size: 1.3rem; letter-spacing: 0.5px; }
+        label { color: rgba(255,255,255,0.75); font-size: 0.85rem; display: block; margin-bottom: 3px; }
+        input {
+            width: 100%; padding: 0.65rem; margin-bottom: 1rem;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px; color: #fff; font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus { outline: none; border-color: #e94560; box-shadow: 0 0 3px rgba(233,69,96,0.25); }
+        input::placeholder { color: rgba(255,255,255,0.35); }
+        button {
+            width: 100%; padding: 0.75rem;
+            background: linear-gradient(135deg, #e94560, #c0392b);
+            color: white; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 1rem; font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        .error   { color: #ff6b6b; margin-bottom: 1rem; font-size: 0.85rem; text-align: center; }
+        .success { color: #25efcf4; margin-bottom: 1rem; font-size: 0.85rem; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="suits-bg">
+    <span class="suit">&spades;</span>
+    <span class="suit">&heartsuit;</span>
+    <span class="suit">&diamondsuit;</span>
+    <span class="suit">&clubsuit;</span>
+    <span class="suit">&spades;</span>
+    <span class="suit">&heartsuit;</span>
+    <span class="suit">&diamondsuit;</span>
+    <span class="suit">&clubsuit;</span>
+    <span class="suit">&spades;</span>
+    <span class="suit">&heartsuit;</span>
+</div>
+
+<div class="login-box">
+    <h2>Cards One Stop Shop</h2>
+    <div th:if="${param.error}" class="error">Invalid username or password.</div>
+    <div th:if="${param.logout}" class="success">You have been logged out.</div>
+    <form method="post" th:action="@{/login}">
+        <label>Username:</label>
+        <input type="text" name="username" required autofocus/>
+        <label>Password:</label>
+        <input type="password" name="password" required/>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+</body>
+</html>
